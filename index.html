@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Práctica Flexbox y Grid</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; background: #f4f4f9; }
+
+    /* FLEXBOX: Para la barra de navegación (1D) */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1e293b;
+      color: white;
+      padding: 15px 30px;
+    }
+    .menu { display: flex; gap: 20px; list-style: none; }
+
+    /* CSS GRID: Para la galería de proyectos (2D) */
+    .contenedor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+    .tarjeta {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <strong>MiPortafolio</strong>
+    <ul class="menu">
+      <li>Inicio</li>
+      <li>Proyectos</li>
+      <li>Contacto</li>
+    </ul>
+  </nav>
+
+  <main class="contenedor-grid">
+    <div class="tarjeta"><h3>Proyecto 1</h3><p>Sistema con Git y Terminal</p></div>
+    <div class="tarjeta"><h3>Proyecto 2</h3><p>Maquetación con Grid</p></div>
+    <div class="tarjeta"><h3>Proyecto 3</h3><p>Consumo de APIs</p></div>
+    <div class="tarjeta"><h3>Proyecto 4</h3><p>App en React</p></div>
+  </main>
+
+</body>
+</html>
