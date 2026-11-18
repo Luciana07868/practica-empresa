@@ -2,38 +2,70 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Práctica con Tailwind CSS</title>
+  <title>Módulo 3: Web APIs en Acción</title>
   <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 font-sans">
 
   <nav class="flex justify-between items-center bg-gray-800 text-white px-8 py-4 shadow">
-    <strong class="text-lg tracking-wide">MiPortafolio</strong>
-    <ul class="flex gap-6 text-sm">
-      <li class="hover:text-blue-400 cursor-pointer">Inicio</li>
-      <li class="hover:text-blue-400 cursor-pointer">Proyectos</li>
-      <li class="hover:text-blue-400 cursor-pointer">Contacto</li>
-    </ul>
+    <strong class="text-lg">Panel Empresarial (Web APIs)</strong>
+    <span id="ultimo-copiado" class="text-xs bg-gray-700 px-3 py-1 rounded text-blue-300">
+      Sin correos copiados aún
+    </span>
   </nav>
 
-  <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-8">
-    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-      <h3 class="font-bold text-gray-800 text-lg mb-2">Proyecto 1</h3>
-      <p class="text-gray-600 text-sm">Sistema con Git y Terminal</p>
-    </div>
-    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-      <h3 class="font-bold text-gray-800 text-lg mb-2">Proyecto 2</h3>
-      <p class="text-gray-600 text-sm">Maquetación con Tailwind</p>
-    </div>
-    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-      <h3 class="font-bold text-gray-800 text-lg mb-2">Proyecto 3</h3>
-      <p class="text-gray-600 text-sm">Consumo de Web APIs</p>
-    </div>
-    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-      <h3 class="font-bold text-gray-800 text-lg mb-2">Proyecto 4</h3>
-      <p class="text-gray-600 text-sm">App en React</p>
-    </div>
+  <main id="contenedor-usuarios" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-8">
+    <p class="text-gray-500">Cargando datos desde la API...</p>
   </main>
+
+  <script>
+    const contenedor = document.getElementById("contenedor-usuarios");
+    const etiquetaGuardado = document.getElementById("ultimo-copiado");
+
+    // 1. LOCALSTORAGE: Recuperar si ya había algo guardado antes
+    const correoPrevio = localStorage.getItem("ultimoCorreo");
+    if (correoPrevio) {
+      etiquetaGuardado.textContent = "Último copiado: " + correoPrevio;
+    }
+
+    // 2. CLIPBOARD API + LOCALSTORAGE: Copiar y guardar
+    function copiarCorreo(correo) {
+      navigator.clipboard.writeText(correo);
+      localStorage.setItem("ultimoCorreo", correo);
+      etiquetaGuardado.textContent = "Último copiado: " + correo;
+      alert("Copiado al portapapeles: " + correo);
+    }
+
+    // 3. FETCH + ASYNC/AWAIT + DOM: Traer datos reales de una API
+    async function cargarEmpleados() {
+      try {
+        const respuesta = await fetch("https://jsonplaceholder.typicode.com/users");
+        const usuarios = await respuesta.json();
+
+        contenedor.innerHTML = ""; // Limpiar mensaje de carga
+
+        usuarios.slice(0, 4).forEach(user => {
+          contenedor.innerHTML += `
+            <div class="bg-white p-6 rounded-xl shadow flex flex-col justify-between">
+              <div>
+                <h3 class="font-bold text-gray-800 text-lg">${user.name}</h3>
+                <p class="text-gray-500 text-sm mb-4">${user.email}</p>
+              </div>
+              <button 
+                onclick="copiarCorreo('${user.email}')"
+                class="bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded">
+                Copiar correo
+              </button>
+            </div>
+          `;
+        });
+      } catch (error) {
+        contenedor.innerHTML = "<p class='text-red-500'>Error al conectar con la API.</p>";
+      }
+    }
+
+    cargarEmpleados();
+  </script>
 
 </body>
 </html>
