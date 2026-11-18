@@ -2,52 +2,37 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Práctica Flexbox y Grid</title>
-  <style>
-    body { font-family: sans-serif; margin: 0; background: #f4f4f9; }
-
-    /* FLEXBOX: Para la barra de navegación (1D) */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #1e293b;
-      color: white;
-      padding: 15px 30px;
-    }
-    .menu { display: flex; gap: 20px; list-style: none; }
-
-    /* CSS GRID: Para la galería de proyectos (2D) */
-    .contenedor-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 30px;
-    }
-    .tarjeta {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-  </style>
+  <title>Práctica con Tailwind CSS</title>
+  <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100 font-sans">
 
-  <nav class="navbar">
-    <strong>MiPortafolio</strong>
-    <ul class="menu">
-      <li>Inicio</li>
-      <li>Proyectos</li>
-      <li>Contacto</li>
+  <nav class="flex justify-between items-center bg-gray-800 text-white px-8 py-4 shadow">
+    <strong class="text-lg tracking-wide">MiPortafolio</strong>
+    <ul class="flex gap-6 text-sm">
+      <li class="hover:text-blue-400 cursor-pointer">Inicio</li>
+      <li class="hover:text-blue-400 cursor-pointer">Proyectos</li>
+      <li class="hover:text-blue-400 cursor-pointer">Contacto</li>
     </ul>
   </nav>
 
-  <main class="contenedor-grid">
-    <div class="tarjeta"><h3>Proyecto 1</h3><p>Sistema con Git y Terminal</p></div>
-    <div class="tarjeta"><h3>Proyecto 2</h3><p>Maquetación con Grid</p></div>
-    <div class="tarjeta"><h3>Proyecto 3</h3><p>Consumo de APIs</p></div>
-    <div class="tarjeta"><h3>Proyecto 4</h3><p>App en React</p></div>
+  <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-8">
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h3 class="font-bold text-gray-800 text-lg mb-2">Proyecto 1</h3>
+      <p class="text-gray-600 text-sm">Sistema con Git y Terminal</p>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h3 class="font-bold text-gray-800 text-lg mb-2">Proyecto 2</h3>
+      <p class="text-gray-600 text-sm">Maquetación con Tailwind</p>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h3 class="font-bold text-gray-800 text-lg mb-2">Proyecto 3</h3>
+      <p class="text-gray-600 text-sm">Consumo de Web APIs</p>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h3 class="font-bold text-gray-800 text-lg mb-2">Proyecto 4</h3>
+      <p class="text-gray-600 text-sm">App en React</p>
+    </div>
   </main>
 
 </body>
